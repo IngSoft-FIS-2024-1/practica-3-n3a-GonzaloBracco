@@ -5,7 +5,7 @@ describe('Book', () => {
   let myBook;
 
   beforeEach(() => {
-    myBook = new Book('Cuentos de la Selva', 'Horacio Quiroga', 350);
+    myBook = new Book('Cuentos de la Selva', 'Horacio Quiroga', 350,700);
   });
 
   it('return the correct title', () => {
@@ -24,23 +24,45 @@ describe('Book', () => {
     expect(() => myBook = new Book(451, 1, 350)).toThrow();
   });
 
+
+  it('check author is anonimo', () => {
+    myBook = new Book('Los tres chanchitos', '', 1, 350);
+    expect((myBook.getAuthor())).toBe('Anónimo');
+  });
+
+
+
   it('check title is not empty', () => {
     expect(() => myBook = new Book('', 'Horacio Quiroga', 350)).toThrow();
   });
 
   it('check author is a string', () => {
-    // TODO
+    expect(() => myBook = new Book('Los tres chanchitos', 1324354, 1, 350)).toThrow();
   });
 
   it('check page param is a number', () => {
-    // TODO
+    expect(()=>myBook.setPages('letra')).toThrow();
   });
 
   it('check pages not < 1', () => {
-    // TODO
+    expect(()=>myBook.setPages(-1)).toThrow();
   });
+
   it('toString()', () => {
-    // TODO
+    let myBook = new Book('Cuentos de la Selva','Horacio Quiroga', 350, 2000);
+    expect(myBook.toString()).toBe('Título: Cuentos de la Selva Autor: Horacio Quiroga Páginas: 350 Palabras: 2000');
+  });
+
+  it('check words is a number',() =>{
+    expect(()=>myBook.setWords('letra')).toThrow();
+  });
+
+  it('return the correct number of words', () => {
+    expect(myBook.getWords()).toBe(700);
+  });
+
+  it('return the average of words per page', () => {
+    expect(myBook.wordsPerPage()).toBe(2);
   });
 
 });
